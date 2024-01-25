@@ -16,9 +16,10 @@ export default function Home() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
+              className="text-sm group duration-500 text-zinc-500 hover:text-zinc-300"
             >
               {item.name}
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-zinc-500 group-hover:bg-zinc-300"></span>
             </Link>
           ))}
         </ul>
