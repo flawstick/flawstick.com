@@ -42,7 +42,7 @@ export const Navigation: React.FC = () => {
             : "bg-zinc-900/500  border-zinc-800 "
         }`}
       >
-        <div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
+        <div className="container flex flex-row-reverse items-center justify-between py-4 px-6 xl:py-6 mx-auto">
           <div className="flex justify-between gap-8">
             <Link
               href="/projects"
@@ -69,12 +69,12 @@ export const Navigation: React.FC = () => {
               initial="hidden"
               whileHover="visible"
               transition={{ stiffness: 100, damping: 30 }}
-              width="48"
-              height="48"
+              width="42"
+              height="42"
             >
               <motion.circle
-                cx="24"
-                cy="24"
+                cx="21"
+                cy="21"
                 r="16"
                 stroke="#F4F4F5"
                 strokeWidth="1"
@@ -83,8 +83,8 @@ export const Navigation: React.FC = () => {
               />
               <ArrowLeft
                 className="w-6 h-6 duration-200 text-zinc-300 group-hover:text-zinc-100"
-                x="12"
-                y="12"
+                x="9"
+                y="9"
               />
             </motion.svg>
           </Link>
