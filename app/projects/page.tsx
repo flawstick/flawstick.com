@@ -89,8 +89,9 @@ export default async function ProjectsPage() {
                   {featured.description}
                 </p>
                 <div className="absolute bottom-4 md:bottom-8">
-                  <p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
+                  <p className="hidden group text-zinc-200 hover:text-zinc-50 duration-500 lg:block">
                     Read more <span aria-hidden="true">&rarr;</span>
+                    <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-zinc-200 group-hover:bg-zinc-50"></span>
                   </p>
                 </div>
               </article>

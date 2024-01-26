@@ -2,6 +2,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 export const Navigation: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
@@ -43,12 +44,12 @@ export const Navigation: React.FC = () => {
               <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-zinc-400 group-hover:bg-zinc-100"></span>
             </Link>
           </div>
-
-          <Link
-            href="/"
-            className="duration-200 text-zinc-300 hover:text-zinc-100"
-          >
-            <ArrowLeft className="w-6 h-6 " />
+          <Link href="/" className="inline-block">
+            <ArrowLeft
+              className="w-6 h-6 text-zinc-300 hover:text-zinc-100"
+              x="14"
+              y="14"
+            />
           </Link>
         </div>
       </div>
