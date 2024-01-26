@@ -18,6 +18,21 @@ export const Navigation: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  const draw = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: () => {
+      return {
+        pathLength: 1.05,
+        opacity: 1,
+        scale: 1.2,
+        transition: {
+          pathLength: { type: "spring", duration: 1, bounce: 0 },
+          opacity: { duration: 0.2 },
+        },
+      };
+    },
+  };
+
   return (
     <header ref={ref}>
       <div
@@ -44,12 +59,34 @@ export const Navigation: React.FC = () => {
               <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-zinc-400 group-hover:bg-zinc-100"></span>
             </Link>
           </div>
-          <Link href="/" className="inline-block">
-            <ArrowLeft
-              className="w-6 h-6 text-zinc-300 hover:text-zinc-100"
-              x="14"
-              y="14"
-            />
+          <Link
+            href="/"
+            className="group inline-block duration-1000  hover:scale-110"
+          >
+            <motion.svg
+              xmlns="http://www.w3.org/2000/svg"
+              version="1.1"
+              initial="hidden"
+              whileHover="visible"
+              transition={{ stiffness: 100, damping: 30 }} // Adjust the duration as needed
+              width="50" // Set your desired width
+              height="50" // Set your desired height
+            >
+              <motion.circle
+                cx="26"
+                cy="26"
+                r="16"
+                stroke="#F4F4F5"
+                strokeWidth="1"
+                fill="none"
+                variants={draw}
+              />
+              <ArrowLeft
+                className="w-6 h-6 duration-200 text-zinc-300 group-hover:text-zinc-100"
+                x="14"
+                y="14"
+              />
+            </motion.svg>
           </Link>
         </div>
       </div>
