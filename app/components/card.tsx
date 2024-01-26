@@ -4,8 +4,8 @@ import { PropsWithChildren } from "react";
 import { motion, useMotionTemplate, useSpring } from "framer-motion";
 
 export const Card: React.FC<PropsWithChildren> = ({ children }) => {
-  const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
+  const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
 
   function onMouseMove({ currentTarget, clientX, clientY }: any) {
     const { left, top } = currentTarget.getBoundingClientRect();
@@ -18,7 +18,7 @@ export const Card: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div
       onMouseMove={onMouseMove}
-      className="overflow-hidden relative duration-500 border-[1px] rounded-xl hover:bg-zinc-800/10 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 hover:shadow-lg hover:shadow-emerald-100/20"
+      className="overflow-hidden relative duration-500 border-[1px] rounded-xl hover:bg-zinc-800/10 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 hover:shadow-lg hover:shadow-emerald-100/10"
     >
       <div className="pointer-events-none">
         <div className="absolute inset-0 z-0 transition duration-1000 [mask-image:linear-gradient(black, transparent)]" />

@@ -28,6 +28,21 @@ export const Header: React.FC<Props> = ({ project, views }) => {
   const maskImage = useMotionTemplate`radial-gradient(240px at ${mouseX}px ${mouseY}px, white, transparent)`;
   const style = { maskImage, WebkitMaskImage: maskImage };
 
+  const draw = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: () => {
+      return {
+        pathLength: 1.05,
+        opacity: 1,
+        scale: 1.2,
+        transition: {
+          pathLength: { type: "spring", duration: 0.5, bounce: 0 },
+          opacity: { duration: 0.25 },
+        },
+      };
+    },
+  };
+
   const links: { label: string; href: string }[] = [];
   if (project.repository) {
     links.push({
@@ -91,35 +106,108 @@ export const Header: React.FC<Props> = ({ project, views }) => {
                 views,
               )}
             </span>
-            <Link target="_blank" href="https://twitter.com/0xaionarete">
-              <Twitter
-                className={`w-6 h-6 duration-200 hover:font-medium ${
-                  isIntersecting
-                    ? " text-zinc-400 hover:text-zinc-100"
-                    : "text-zinc-600 hover:text-zinc-900"
-                } `}
-              />
+            <Link
+              className="group inline-block duration-500 hover:scale-110"
+              target="_blank"
+              href="https://twitter.com/0xaionarete"
+            >
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                initial="hidden"
+                whileHover="visible"
+                transition={{ stiffness: 100, damping: 30 }}
+                width="48"
+                height="48"
+              >
+                <motion.circle
+                  cx="24"
+                  cy="24"
+                  r="18"
+                  stroke={`${isIntersecting ? "#F4F4F5" : "#18181B"}`}
+                  strokeWidth="1"
+                  fill="none"
+                  variants={draw}
+                />
+                <Twitter
+                  className={`w-6 h-6 duration-200 group-hover:font-medium ${
+                    isIntersecting
+                      ? " text-zinc-400 group-hover:text-zinc-100"
+                      : "text-zinc-600 group-hover:text-zinc-900"
+                  } `}
+                  x="12"
+                  y="12"
+                />
+              </motion.svg>
             </Link>
-            <Link target="_blank" href="https://github.com/flawstick">
-              <Github
-                className={`w-6 h-6 duration-200 hover:font-medium ${
-                  isIntersecting
-                    ? " text-zinc-400 hover:text-zinc-100"
-                    : "text-zinc-600 hover:text-zinc-900"
-                } `}
-              />
+            <Link
+              className="group inline-block duration-500 hover:scale-110"
+              target="_blank"
+              href="https://github.com/flawstick"
+            >
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                initial="hidden"
+                whileHover="visible"
+                transition={{ stiffness: 100, damping: 30 }}
+                width="48"
+                height="48"
+              >
+                <motion.circle
+                  cx="24"
+                  cy="24"
+                  r="18"
+                  stroke={`${isIntersecting ? "#F4F4F5" : "#18181B"}`}
+                  strokeWidth="1"
+                  fill="none"
+                  variants={draw}
+                />
+                <Github
+                  className={`w-6 h-6 duration-200 group-hover:font-medium ${
+                    isIntersecting
+                      ? " text-zinc-400 group-hover:text-zinc-100"
+                      : "text-zinc-600 group-hover:text-zinc-900"
+                  } `}
+                  x="12"
+                  y="12"
+                />
+              </motion.svg>
             </Link>
           </div>
 
           <Link
             href="/projects"
-            className={`duration-200 hover:font-medium ${
-              isIntersecting
-                ? " text-zinc-400 hover:text-zinc-100"
-                : "text-zinc-600 hover:text-zinc-900"
-            } `}
+            className="group duration-200 hover:scale-110 hover:font-medium"
           >
-            <ArrowLeft className="w-6 h-6 " />
+            <motion.svg
+              xmlns="http://www.w3.org/2000/svg"
+              version="1.1"
+              initial="hidden"
+              whileHover="visible"
+              transition={{ stiffness: 100, damping: 30 }}
+              width="48"
+              height="48"
+            >
+              <motion.circle
+                cx="24"
+                cy="24"
+                r="16"
+                stroke={`${isIntersecting ? "#F4F4F5" : "#18181B"}`}
+                strokeWidth="1"
+                fill="none"
+                variants={draw}
+              />
+              <ArrowLeft
+                className={`w-6 h-6 duration-200 group-hover:font-medium ${
+                  isIntersecting
+                    ? " text-zinc-400 group-hover:text-zinc-100"
+                    : "text-zinc-600 group-hover:text-zinc-900"
+                } `}
+                x="12"
+                y="12"
+              />
+            </motion.svg>
           </Link>
         </div>
       </div>

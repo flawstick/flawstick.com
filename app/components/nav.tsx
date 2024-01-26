@@ -26,8 +26,8 @@ export const Navigation: React.FC = () => {
         opacity: 1,
         scale: 1.2,
         transition: {
-          pathLength: { type: "spring", duration: 1, bounce: 0 },
-          opacity: { duration: 0.2 },
+          pathLength: { type: "spring", duration: 0.5, bounce: 0 },
+          opacity: { duration: 0.25 },
         },
       };
     },
@@ -61,20 +61,20 @@ export const Navigation: React.FC = () => {
           </div>
           <Link
             href="/"
-            className="group inline-block duration-1000  hover:scale-110"
+            className="group inline-block duration-500 hover:scale-110"
           >
             <motion.svg
               xmlns="http://www.w3.org/2000/svg"
               version="1.1"
               initial="hidden"
               whileHover="visible"
-              transition={{ stiffness: 100, damping: 30 }} // Adjust the duration as needed
-              width="50" // Set your desired width
-              height="50" // Set your desired height
+              transition={{ stiffness: 100, damping: 30 }}
+              width="48"
+              height="48"
             >
               <motion.circle
-                cx="26"
-                cy="26"
+                cx="24"
+                cy="24"
                 r="16"
                 stroke="#F4F4F5"
                 strokeWidth="1"
@@ -83,8 +83,8 @@ export const Navigation: React.FC = () => {
               />
               <ArrowLeft
                 className="w-6 h-6 duration-200 text-zinc-300 group-hover:text-zinc-100"
-                x="14"
-                y="14"
+                x="12"
+                y="12"
               />
             </motion.svg>
           </Link>
