@@ -45,6 +45,13 @@ export const Navigation: React.FC = () => {
         <div className="container flex flex-row-reverse items-center justify-between py-4 px-6 xl:py-6 mx-auto">
           <div className="flex justify-between gap-8">
             <Link
+              href="/blog"
+              className="group duration-300 text-zinc-400 hover:text-zinc-100"
+            >
+              Blog
+              <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-zinc-400 group-hover:bg-zinc-100"></span>
+            </Link>
+            <Link
               href="/projects"
               className="group duration-300 text-zinc-400 hover:text-zinc-100"
             >
