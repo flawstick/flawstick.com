@@ -66,6 +66,9 @@ export const BlogPost = defineDocumentType(() => ({
     url: {
       type: "string",
     },
+    imageUri: {
+      type: "string",
+    },
     repository: {
       type: "string",
     },

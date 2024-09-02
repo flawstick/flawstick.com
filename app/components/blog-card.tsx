@@ -1,13 +1,34 @@
 "use client";
 
 import { motion, useMotionTemplate, useSpring } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
 
-interface PropsWithChildren {
+import { cn } from "@/util/cn";
+
+const cardImageVariants = cva("", {
+  variants: {
+    variant: {
+      default:
+        "top-0 left-0 right-0 h-1/2 group-hover:h-0 transition-height transition-all ease-in-out duration-500  bg-cover bg-center z-0",
+      background:
+        "absolute top-0 left-0 right-0 h-full opacity-0 group-hover:opacity-10 transition-opacity ease-in-out duration-1000 bg-cover z-[-1] will-change-opacity",
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+});
+
+interface PropsWithChildren extends VariantProps<typeof cardImageVariants> {
   children: React.ReactNode;
   image?: string;
 }
 
-export const BlogCard: React.FC<PropsWithChildren> = ({ children, image }) => {
+export const BlogCard: React.FC<PropsWithChildren> = ({
+  children,
+  image,
+  variant,
+}) => {
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 });
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 });
 
@@ -22,14 +43,14 @@ export const BlogCard: React.FC<PropsWithChildren> = ({ children, image }) => {
   return (
     <div
       onMouseMove={onMouseMove}
-      className="overflow-hidden relative duration-500 border-[1px] rounded-xl hover:bg-zinc-800/10 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 hover:shadow-lg hover:shadow-emerald-200/20 hover:-translate-y-5"
+      className="overflow-hidden relative transition-opacity transform transition-all transition-transform duration-500 border-[1px] rounded-xl hover:bg-zinc-800/10 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 hover:shadow-lg hover:shadow-emerald-200/20 hover:-translate-y-5"
     >
       {image && (
         <div
           style={{ backgroundImage: `url(${image})` }}
-          className="top-0 left-0 right-0 h-1/2 group-hover:h-0 transition-height transition-all ease-in-out duration-500  bg-cover bg-center z-0"
+          className={cn(cardImageVariants({ variant }))}
         >
-          <div className="absolute z-10 bottom-0 left-0 right-0 h-1/2 group-hover:opacity-0 group-hover:h-0 duration-500 transition transition-all ease-in-out bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div className="absolute z-20 bottom-0 left-0 right-0 h-1/2 group-hover:opacity-0 group-hover:h-0 duration-500 transition transition-all ease-in-out bg-gradient-to-t from-black via-transparent to-transparent"></div>
         </div>
       )}
       <div className="pointer-events-none">
@@ -47,3 +68,4 @@ export const BlogCard: React.FC<PropsWithChildren> = ({ children, image }) => {
     </div>
   );
 };
+BlogCard.displayName = "BlogCard";

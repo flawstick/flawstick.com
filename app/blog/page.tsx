@@ -24,8 +24,8 @@ export default async function BlogsPage() {
   );
 
   const featured = allBlogPosts.find((blog) => blog.slug === "endeavour")!;
-  const top2 = allBlogPosts.find((blog) => blog.slug === "nara")!;
-  const top3 = allBlogPosts.find((blog) => blog.slug === "empathai")!;
+  const top2 = allBlogPosts.find((blog) => blog.slug === "endeavour")!;
+  const top3 = allBlogPosts.find((blog) => blog.slug === "endeavour")!;
   const sorted = allBlogPosts
     .filter(
       (blog) =>
@@ -55,8 +55,8 @@ export default async function BlogsPage() {
         <div className="w-full h-px bg-zinc-800" />
 
         <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
-          <BlogCard image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg">
-            <Link href={`/blogs/${featured.slug}`}>
+          <BlogCard image={featured?.imageUri} variant="default">
+            <Link href={`/blog/${featured.slug}`}>
               <article className="relative w-full h-full p-4 md:p-8">
                 <div className="flex items-center justify-between gap-2">
                   <div className="text-xs text-zinc-100">
@@ -99,7 +99,11 @@ export default async function BlogsPage() {
 
           <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 ">
             {[top2, top3].map((blog) => (
-              <BlogCard key={blog.slug}>
+              <BlogCard
+                key={blog.slug}
+                image={blog?.imageUri}
+                variant="background"
+              >
                 <Article blog={blog} views={views[blog.slug] ?? 0} />
               </BlogCard>
             ))}
