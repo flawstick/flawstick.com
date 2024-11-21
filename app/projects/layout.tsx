@@ -4,7 +4,7 @@ export default function ProjectsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative min-h-screen bg-gradient-to-tl from-zinc-900 via-zinc-400/10 to-zinc-900">
+    <div className="relative min-h-screen bg-gradient-to-tl from-[#191D32] via-[#282F44] to-[#191D32]">
       {children}
     </div>
   );

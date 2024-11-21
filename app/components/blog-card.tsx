@@ -43,7 +43,7 @@ export const BlogCard: React.FC<PropsWithChildren> = ({
   return (
     <div
       onMouseMove={onMouseMove}
-      className="overflow-hidden relative transition-opacity transform transition-all transition-transform duration-500 border-[1px] rounded-xl hover:bg-zinc-800/10 group md:gap-8 hover:border-zinc-400/50 border-zinc-600 hover:shadow-lg hover:shadow-emerald-200/20 hover:-translate-y-5"
+      className="overflow-hidden relative transition-opacity transform transition-all transition-transform duration-500 border-[1px] rounded-xl hover:bg-[#191D32] group md:gap-8 hover:border-zinc-400/50 border-zinc-600 hover:shadow-lg hover:shadow-[#6D3B47]/20 hover:-translate-y-5"
     >
       {image && (
         <div
