@@ -1,0 +1,263 @@
+---
+title: "The Webdev Experience"
+description: "As a former low level language and security expert, going into web development felt unnatural. In this post I offer a unique outlook on the transition between kernel level development and security scrutiny to the world of web development, the development of that which has plagued our lives inextricably."
+date: "2023-08-01"
+author: "flawstick"
+published: true
+---
+
+# The Webdev Experience
+
+As a former low level language and security expert, going into web development felt unnatural. In this post I offer a unique outlook on the transition between kernel level development and security scrutiny to the world of web development.
+
+## What is it?
+
+Henoamly is a multi-modal for anomaly detection in hebrew scriptures. This model employs a multi-modal approach toward anomaly detection, utilizing cutting-edge technologies such as Vision Transformers (ViT) with their attention to diminutive intricacies, as-well as a highly complex LSTM structure for Optical Character Recognition. Furthermore, it is capable of accurately adjusting preprocessing parameters to achieve OCR-eligible images.
+
+## What does it solve?
+
+Hours go into manual anomaly detection in letters and words in hebrew
+scriptures, approximately seven minutes per page. This model is capable of reducing
+that amount drastically, even on a low-performance core processing unit.
+
+## How fast is it?
+
+The following is a plot for its performance on two different processing units. The first being a medium performance
+CPU, an Intel i7 8th generation, while the second is a microprocessor, low performance unit.
+
+![](https://i.ibb.co/8n3Hc78/8d7ad52b-98c6-4746-bc18-b49ae8f74c45.png)
+\`\`\`
+
+Now, let's update the blog page to include this new blog post in the list of blogs:
+
+```typescriptreact file="app/blog/page.tsx"
+[v0-no-op-code-block-prefix]"use client"
+
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { Eye } from 'lucide-react'
+import { Card } from "@/components/card"
+import { Skeleton } from "@/components/ui/skeleton"
+import { formatDate } from "@/lib/utils"
+import { getMultipleBlogViews } from "@/lib/actions"
+import { BlogArticle } from "@/components/blog-article"
+
+// For the preview environment, we'll use this sample data
+// In production, this would be fetched from the file system
+const blogsData = [
+  {
+    slug: "neovim-vs-cursor",
+    title: "Neovim vs Cursor: The Ultimate Developer Showdown",
+    description:
+      "A deep dive into why Neovim outperforms Cursor in almost every way, and why Avante and Claude code are superior alternatives.",
+    date: "2024-04-18",
+    author: "flawstick",
+    published: true,
+  },
+  {
+    slug: "ai-coding-assistants",
+    title: "The Rise of AI Coding Assistants",
+    description: "How AI is transforming the way we write code, with a focus on the strengths of Claude and Avante.",
+    date: "2024-04-10",
+    author: "flawstick",
+    published: true,
+  },
+  {
+    slug: "minimalist-web-design",
+    title: "The Power of Minimalist Web Design",
+    description: "Why less is more when it comes to creating impactful websites and user experiences.",
+    date: "2024-03-25",
+    author: "flawstick",
+    published: true,
+  },
+  {
+    slug: "webdev-experience",
+    title: "The Webdev Experience",
+    description: "As a former low level language and security expert, going into web development felt unnatural. In this post I offer a unique outlook on the transition between kernel level development and security scrutiny to the world of web development.",
+    date: "2023-08-01",
+    author: "flawstick",
+    published: true,
+  },
+]
+
+export default function Blog() {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [blogs, setBlogs] = useState(blogsData)
+  const [filteredBlogs, setFilteredBlogs] = useState(blogsData)
+  const [views, setViews] = useState({})
+  const [viewsLoaded, setViewsLoaded] = useState(false)
+
+  useEffect(() => {
+    // Fetch view counts from Redis
+    async function fetchViewCounts() {
+      try {
+        const slugs = blogs.map((p) => p.slug)
+        const viewCounts = await getMultipleBlogViews(slugs)
+        setViews(viewCounts)
+        setViewsLoaded(true)
+      } catch (error) {
+        console.error("Error fetching view counts:", error)
+        // Fallback to empty view counts
+        const slugs = blogs.map((p) => p.slug)
+        setViews(
+          slugs.reduce((acc, slug) => {
+            acc[slug] = 0
+            return acc
+          }, {}),
+        )
+        setViewsLoaded(true)
+      }
+    }
+
+    fetchViewCounts()
+
+    // Filter blogs based on search term
+    setFilteredBlogs(blogs)
+
+    // Add a small delay before showing content
+    setTimeout(() => {
+      setIsLoaded(true)
+    }, 300)
+  }, [blogs])
+
+  if (!isLoaded) {
+    return (
+      <div className="relative pb-20 mt-8">
+        <div className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
+          <div className="max-w-2xl mx-auto lg:mx-0">
+            <Skeleton className="h-10 w-48 mb-4" />
+            <Skeleton className="h-4 w-full max-w-md" />
+          </div>
+          <div className="w-full h-px bg-zinc-800" />
+          <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2">
+            <Skeleton className="h-[400px] w-full rounded-xl" />
+            <div className="flex flex-col w-full gap-8 mx-auto">
+              <Skeleton className="h-[180px] w-full rounded-xl" />
+              <Skeleton className="h-[180px] w-full rounded-xl" />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const featured = blogs.find((blog) => blog.slug === "neovim-vs-cursor")
+  const top2 = blogs.find((blog) => blog.slug === "ai-coding-assistants")
+  const top3 = blogs.find((blog) => blog.slug === "minimalist-web-design")
+  const sorted = blogs
+    .filter((p) => p.published)
+    .filter((blog) => blog.slug !== featured.slug && blog.slug !== top2.slug && blog.slug !== top3.slug)
+    .sort(
+      (a, b) =>
+        new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() - new Date(a.date ?? Number.POSITIVE_INFINITY).getTime(),
+    )
+
+  return (
+    <div className="relative pb-20 mt-8">
+      <div className="px-6 pt-20 pb-4 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-28">
+        <div className="max-w-2xl mx-auto lg:mx-0">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">Blog</h2>
+          <p className="mt-4 text-zinc-400">Thoughts, ideas, and insights on technology and development.</p>
+        </div>
+        <div className="w-full h-px bg-zinc-800" />
+
+        {filteredBlogs.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2">
+              <Card>
+                <Link href={`/blog/${featured.slug}`}>
+                  <article className="relative w-full h-full p-4 md:p-8">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="text-xs text-zinc-100">
+                        {featured.date ? (
+                          <time dateTime={new Date(featured.date).toISOString()}>{formatDate(featured.date)}</time>
+                        ) : (
+                          <span>SOON</span>
+                        )}
+                      </div>
+                      <span className="flex items-center gap-1 text-xs text-zinc-500">
+                        <Eye className="w-4 h-4" />{" "}
+                        {viewsLoaded ? (
+                          Intl.NumberFormat("en-US", { notation: "compact" }).format(views[featured.slug] ?? 0)
+                        ) : (
+                          <span className="h-3 w-6 bg-zinc-800 animate-pulse rounded"></span>
+                        )}
+                      </span>
+                    </div>
+
+                    <h2
+                      id="featured-post"
+                      className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display"
+                    >
+                      {featured.title}
+                    </h2>
+                    <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
+                      {featured.description}
+                    </p>
+                    <div className="absolute bottom-4 md:bottom-8">
+                      <p className="hidden group text-zinc-200 hover:text-zinc-50 duration-500 lg:block">
+                        Read more <span aria-hidden="true">&rarr;</span>
+                        <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-zinc-200 group-hover:bg-zinc-50"></span>
+                      </p>
+                    </div>
+                  </article>
+                </Link>
+              </Card>
+
+              <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0">
+                {[top2, top3].map((blog) => (
+                  <Card key={blog.slug}>
+                    <Link href={`/blog/${blog.slug}`}>
+                      <BlogArticle blog={blog} views={viewsLoaded ? (views[blog.slug] ?? 0) : null} />
+                    </Link>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            <div className="hidden w-full h-px md:block bg-zinc-800" />
+
+            {sorted.length > 0 && (
+              <div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4">
+                  {sorted
+                    .filter((_, i) => i % 3 === 0)
+                    .map((blog) => (
+                      <Card key={blog.slug}>
+                        <Link href={`/blog/${blog.slug}`}>
+                          <BlogArticle blog={blog} views={viewsLoaded ? (views[blog.slug] ?? 0) : null} />
+                        </Link>
+                      </Card>
+                    ))}
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  {sorted
+                    .filter((_, i) => i % 3 === 1)
+                    .map((blog) => (
+                      <Card key={blog.slug}>
+                        <Link href={`/blog/${blog.slug}`}>
+                          <BlogArticle blog={blog} views={viewsLoaded ? (views[blog.slug] ?? 0) : null} />
+                        </Link>
+                      </Card>
+                    ))}
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  {sorted
+                    .filter((_, i) => i % 3 === 2)
+                    .map((blog) => (
+                      <Card key={blog.slug}>
+                        <Link href={`/blog/${blog.slug}`}>
+                          <BlogArticle blog={blog} views={viewsLoaded ? (views[blog.slug] ?? 0) : null} />
+                        </Link>
+                      </Card>
+                    ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="text-center py-12 text-gray-400 animate-fadeIn">No posts found matching your search.</div>
+        )}
+      </div>
+    </div>
+  )
+}
