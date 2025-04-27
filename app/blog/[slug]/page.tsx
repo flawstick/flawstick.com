@@ -151,4 +151,16 @@ export default async function Page({
   );
 }
 
+// Generate static paths for all published projects at build time
+export async function generateStaticParams() {
+  // Fetch metadata for all projects
+  const blogs = await getAllBlogsMetadata();
+  // Filter only published projects for static generation
+  return blogs
+    .filter((b) => b.published)
+    .map((b) => ({
+      slug: b.slug,
+    }));
+}
+
 export const dynamicParams = false;
