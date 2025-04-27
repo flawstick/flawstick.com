@@ -152,4 +152,3 @@ export default async function Page({
 }
 
 export const dynamicParams = false;
-export const runtime = "edge";
