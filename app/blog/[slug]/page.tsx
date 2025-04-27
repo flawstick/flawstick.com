@@ -1,7 +1,7 @@
 import "./mdx.css";
 import Image from "next/image";
 import { ReportView } from "./view"; // Component to increment views client-side
-import { getBlogViews as getViews } from "@/lib/blog"; // <--- Import from util file
+import { getAllBlogsMetadata, getBlogViews as getViews } from "@/lib/blog"; // <--- Import from util file
 import { notFound } from "next/navigation";
 import { FaGithub, FaLink, FaEye } from "react-icons/fa";
 
@@ -149,6 +149,18 @@ export default async function Page({
       </main>
     </>
   );
+}
+
+// Generate static paths for all published projects at build time
+export async function generateStaticParams() {
+  // Fetch metadata for all projects
+  const blogs = await getAllBlogsMetadata();
+  // Filter only published projects for static generation
+  return blogs
+    .filter((b) => b.published)
+    .map((b) => ({
+      slug: b.slug,
+    }));
 }
 
 export const dynamicParams = false;
