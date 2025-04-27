@@ -16,8 +16,12 @@ interface Frontmatter {
   websiteUrl?: string;
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   let BlogComponent;
   let frontmatter: Frontmatter;
 

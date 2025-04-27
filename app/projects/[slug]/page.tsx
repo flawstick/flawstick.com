@@ -14,9 +14,7 @@ import { formatDate } from "@/lib/utils"; // Date formatting utility
 
 // Define props for the page component
 interface ProjectPageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>; // Slug parameter from the URL
 }
 
 // Generate static paths for all published projects at build time
@@ -35,7 +33,7 @@ export async function generateStaticParams() {
 export const dynamicParams = false;
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const slug = params.slug;
+  const { slug } = await params;
   let ProjectComponent; // Renamed from BlogComponent
   let frontmatter: Omit<ProjectMetadata, "slug" | "views">; // Type from the imported MDX file
 

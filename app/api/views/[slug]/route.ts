@@ -1,5 +1,3 @@
-// File: app/api/views/[slug]/route.ts
-
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,9 +6,9 @@ export const runtime = "edge"; // Use edge runtime for speed
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }, // Context contains route params
+  { params }: { params: Promise<{ slug: string }> },
 ) {
-  const slug = params.slug;
+  const { slug } = await params;
 
   // 1. Validate slug from path parameter
   if (!slug) {
