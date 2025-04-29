@@ -76,7 +76,7 @@ export function ProjectsPageClient({
 
   // --- Data Preparation for Rendering ---
   // Define slugs for featured projects
-  const featuredSlug = "henomaly";
+  const featuredSlug = "createvid";
   const top2Slug = "nara";
   const top3Slug = "empathai";
 
