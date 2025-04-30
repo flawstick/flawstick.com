@@ -1,9 +1,10 @@
-import type React from "react"
-import "./globals.css"
-import { Inter } from "next/font/google"
-import { AnimeNavBar } from "@/components/anime-nav-bar"
+import type React from "react";
+import "./globals.css";
+import { Inter } from "next/font/google";
+import { AnimeNavBar } from "@/components/anime-nav-bar";
+import { Analytics } from "@vercel/analytics/react";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 // Metadata for the site
 export const metadata = {
@@ -14,7 +15,8 @@ export const metadata = {
   },
   openGraph: {
     title: "flawstick",
-    description: "Building createvid.ai to solve video making with vibeproducing",
+    description:
+      "Building createvid.ai to solve video making with vibeproducing",
     images: [
       {
         url: "/og-image.png",
@@ -27,27 +29,29 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "flawstick",
-    description: "Building createvid.ai to solve video making with vibeproducing",
+    description:
+      "Building createvid.ai to solve video making with vibeproducing",
     images: ["/og-image.png"],
   },
-    generator: 'v0.dev'
-}
+  generator: "v0.dev",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
+        <Analytics />
       </head>
       <body className={inter.className}>
         <AnimeNavBar />
         <div className="page-transition-wrapper">{children}</div>
       </body>
     </html>
-  )
+  );
 }
