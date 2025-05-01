@@ -86,7 +86,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <ReportView slug={slug} />
 
       {/* --- Main Content Area --- */}
-      <main className="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 text-white mt-20">
+      <main className="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 text-white mt-20 animate-slide-up-fade">
         {/* Metadata Section */}
         <div className="mb-8">
           <h1 className="text-4xl lg:text-5xl font-extrabold mb-3">

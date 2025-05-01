@@ -1,7 +1,7 @@
 import "./mdx.css";
 import Image from "next/image";
-import { ReportView } from "./view"; // Component to increment views client-side
-import { getBlogViews as getViews } from "@/lib/blog"; // <--- Import from util file
+import { ReportView } from "./view";
+import { getBlogViews as getViews } from "@/lib/blog";
 import { notFound } from "next/navigation";
 import { FaGithub, FaLink, FaEye } from "react-icons/fa";
 
@@ -83,7 +83,7 @@ export default async function Page({
 
       {/* --- Main Content Area --- */}
       {/* `relative z-10` ensures this content appears ON TOP of the fixed background */}
-      <main className="relative z-10 max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8 text-white mt-20">
+      <main className="relative z-10 max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8 text-white mt-20 animate-slide-up-fade">
         {/* Metadata Section */}
         <div className="mb-8">
           <h1 className="text-4xl lg:text-5xl font-extrabold mb-3">
